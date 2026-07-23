@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Screenshots/banner.png" alt="RPP Galaxy Banner" width="100%">
+  <img src="Screenshots/banner.png" width="100%">
 </p>
 
 <h1 align="center">🚀 RPP Galaxy</h1>
