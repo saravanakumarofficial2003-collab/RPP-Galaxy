@@ -1,0 +1,10 @@
+{
+    "Timestamp":  "2026-01-07 18:13:07",
+    "DiskUsedPct":  null,
+    "CPUPercent":  100,
+    "RiskLevel":  "CRITICAL",
+    "FailureAction":  "TempCleanup,GarbageCollection,ServiceRestart:Spooler,ServiceRestart:wuauserv,CPUAnalysisOnly",
+    "Hostname":  "SARAVANAN",
+    "RAMPercent":  95.36,
+    "UptimeHours":  6.64
+}

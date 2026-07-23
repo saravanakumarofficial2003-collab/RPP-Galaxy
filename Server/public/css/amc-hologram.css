@@ -1,0 +1,359 @@
+/* =============================================================
+🌌 AMC HOLOGRAM RADAR – GALAXY LEVEL
+3D • Pulse • Shockwave • Cinematic
+============================================================= */
+
+.amc-card {
+  position: relative;
+  background: radial-gradient(circle at top, #020617, #000);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow:
+    inset 0 0 40px rgba(56,189,248,.25),
+    0 0 50px rgba(15,23,42,.9);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+/* ================= HOLOGRAM GRID ================= */
+.amc-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(56,189,248,.08),
+      rgba(56,189,248,.08) 1px,
+      transparent 3px,
+      transparent 6px
+    );
+  opacity: .25;
+  pointer-events: none;
+}
+
+/* ================= AMC TITLE ================= */
+.amc-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #e0f2fe;
+  margin-bottom: 4px;
+  text-shadow: 0 0 12px rgba(56,189,248,.8);
+}
+
+.amc-sub {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: .7;
+}
+
+/* ================= COUNTDOWN ================= */
+.amc-countdown {
+  font-size: 15px;
+  margin: 8px 0;
+  font-family: "Segoe UI", monospace;
+  color: #7dd3fc;
+  text-shadow: 0 0 8px rgba(56,189,248,.6);
+}
+
+.amc-countdown.expired {
+  color: #ef4444;
+  font-weight: 600;
+  text-shadow: 0 0 14px rgba(239,68,68,.8);
+}
+
+/* ================= TIMELINE ================= */
+.amc-timeline {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 8px 0 12px;
+}
+
+.amc-bar {
+  height: 100%;
+  transition: width .6s ease;
+  background: linear-gradient(90deg,#38bdf8,#22d3ee);
+}
+
+.amc-bar.low { background: linear-gradient(90deg,#22c55e,#4ade80); }
+.amc-bar.medium { background: linear-gradient(90deg,#facc15,#fde047); }
+.amc-bar.high,
+.amc-bar.critical { background: linear-gradient(90deg,#ef4444,#fb7185); }
+
+/* ================= RADAR CORE ================= */
+.galaxy-radar {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 12px auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center,
+      rgba(56,189,248,.35) 0%,
+      rgba(56,189,248,.15) 35%,
+      rgba(2,6,23,.9) 70%
+    );
+  box-shadow:
+    inset 0 0 40px rgba(56,189,248,.6),
+    0 0 40px rgba(56,189,248,.4);
+  overflow: hidden;
+}
+
+/* ================= RADAR SWEEP ================= */
+.galaxy-radar .radar-sweep {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(56,189,248,.9),
+      rgba(56,189,248,0)
+    );
+  transform-origin: 0% 0%;
+  animation: radar-spin 2.8s linear infinite;
+}
+
+/* ================= PULSE RINGS ================= */
+.galaxy-radar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(56,189,248,.8);
+  animation: radar-pulse 3s ease-out infinite;
+}
+
+/* ================= EXPIRY WARNING ================= */
+.amc-card.critical .galaxy-radar,
+.amc-card.warning .galaxy-radar {
+  background:
+    radial-gradient(circle at center,
+      rgba(239,68,68,.45) 0%,
+      rgba(239,68,68,.2) 35%,
+      rgba(2,6,23,.95) 70%
+    );
+  box-shadow:
+    inset 0 0 60px rgba(239,68,68,.9),
+    0 0 80px rgba(239,68,68,.8);
+}
+
+.amc-card.critical .radar-sweep {
+  background: linear-gradient(90deg, rgba(239,68,68,1), transparent);
+  animation-duration: 1.2s;
+}
+
+/* ================= ACTION BUTTONS ================= */
+.amc-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.amc-actions button {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.15);
+  color: #e5e7eb;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.amc-actions button:hover {
+  background: rgba(56,189,248,.25);
+  box-shadow: 0 0 14px rgba(56,189,248,.6);
+}
+
+/* ================= HEARTBEAT ================= */
+.pulse-green {
+  animation: heartbeat-green 2s ease-in-out infinite;
+}
+
+.pulse-red {
+  animation: heartbeat-red 1s ease-in-out infinite;
+}
+
+/* ================= KEYFRAMES ================= */
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes radar-pulse {
+  0%   { box-shadow: 0 0 10px rgba(56,189,248,.4); }
+  50%  { box-shadow: 0 0 45px rgba(56,189,248,.9); }
+  100% { box-shadow: 0 0 10px rgba(56,189,248,.4); }
+}
+
+@keyframes heartbeat-green {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.04); }
+}
+
+@keyframes heartbeat-red {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.08); }
+}
+/* =============================================================
+🌌 AMC EXECUTIVE SINGLE-COLUMN LAYOUT
+Clean • Calm • Apple-Vision Feel
+============================================================= */
+
+/* CARD STRUCTURE */
+.amc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ================= HEADER ================= */
+.amc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(56,189,248,.15);
+}
+
+.amc-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: #e0f2fe;
+}
+
+.amc-sub {
+  font-size: 12px;
+  opacity: .7;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+/* ================= COUNTDOWN ================= */
+.amc-countdown {
+  font-size: 14px;
+  font-weight: 500;
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56,189,248,.6);
+}
+
+/* ================= TIMELINE ================= */
+.amc-timeline {
+  height: 6px;
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.amc-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #22d3ee,
+    #38bdf8
+  );
+  box-shadow: 0 0 14px rgba(56,189,248,.8);
+  transition: width .6s ease;
+}
+
+/* ================= META BLOCK ================= */
+.amc-meta,
+.amc-dates {
+  font-size: 13px;
+  line-height: 1.6;
+  padding-left: 2px;
+  opacity: .9;
+}
+
+/* ================= SECTIONS ================= */
+.amc-section {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amc-section button {
+  background: rgba(255,255,255,.06);
+  border: none;
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #7dd3fc;
+}
+
+/* ================= LIST ================= */
+.amc-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s ease, opacity .4s ease;
+  opacity: 0;
+}
+
+.amc-list.show {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* ITEM ROW */
+.amc-row {
+  padding: 8px 10px;
+  margin-top: 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ================= ACTIONS ================= */
+.amc-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.amc-actions button {
+  background: rgba(255,255,255,.06);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #e0f2fe;
+  transition: all .3s ease;
+}
+
+.amc-actions button:hover {
+  background: rgba(56,189,248,.25);
+  box-shadow: 0 0 18px rgba(56,189,248,.6);
+}
+
+/* ================= EXPAND ANIMATION ================= */
+.amc-expand {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    max-height .6s ease,
+    opacity .4s ease,
+    transform .4s ease;
+}
+
+.amc-expand.open {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BEAST — Server Room Digital Twin</title>
+<style>
+body { background:#000; margin:0; display:flex; justify-content:center; align-items:center; height:100vh; }
+.rack {
+    width:160px;
+    height:500px;
+    background:#111;
+    border:2px solid #6f00ff;
+    border-radius:8px;
+    padding:6px;
+    margin:20px;
+    position:relative;
+}
+.unit {
+    height:28px;
+    margin:3px 0;
+    background:#222;
+    border-radius:4px;
+    border-left:6px solid #22c55e;
+    padding:4px;
+    color:white;
+    font-family:Arial;
+}
+.unit.offline { border-left-color:#ef4444; }
+.unit.warn { border-left-color:#eab308; }
+.unit.critical { border-left-color:#fb923c; }
+</style>
+</head>
+<body>
+
+<div class="rack" id="rack1"></div>
+<div class="rack" id="rack2"></div>
+
+<script>
+function loadRack(rackId, count) {
+    let rack = document.getElementById(rackId);
+    for (let i=0; i<count; i++) {
+        let div = document.createElement("div");
+        div.className = "unit";
+        div.innerText = "Server U-" + (count-i);
+
+        rack.appendChild(div);
+    }
+}
+
+loadRack("rack1", 12);
+loadRack("rack2", 10);
+
+// live update example:
+setTimeout(()=>{
+    document.querySelectorAll(".unit")[2].classList.add("critical");
+},3000);
+</script>
+
+</body>
+</html>

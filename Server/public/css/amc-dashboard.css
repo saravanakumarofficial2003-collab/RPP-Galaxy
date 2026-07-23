@@ -1,0 +1,197 @@
+/* =========================================================
+   🌌 GALAXY AMC DASHBOARD – CINEMATIC VISUALS
+   IT VIEW ONLY • RADAR • HEARTBEAT • PREMIUM
+   ========================================================= */
+
+#amcContainer {
+  margin: 20px 0;
+  padding: 16px;
+  background: radial-gradient(circle at top, #020617, #000);
+  border-radius: 18px;
+  box-shadow:
+    0 0 40px rgba(56,189,248,.15),
+    inset 0 0 30px rgba(255,255,255,.03);
+}
+
+/* ================= HEADER ================= */
+.amc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  color: #e0f2fe;
+  letter-spacing: 1px;
+}
+
+.amc-header button {
+  background: linear-gradient(135deg,#38bdf8,#22c55e);
+  color: #020617;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(56,189,248,.6);
+}
+
+/* ================= GRID ================= */
+.amc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 16px;
+}
+
+/* ================= CARD ================= */
+.amc-card {
+  position: relative;
+  background: rgba(2,6,23,.8);
+  border-radius: 16px;
+  padding: 14px;
+  overflow: hidden;
+  color: #cbd5f5;
+  box-shadow:
+    0 0 20px rgba(56,189,248,.15),
+    inset 0 0 20px rgba(255,255,255,.02);
+  transition: transform .3s ease;
+}
+
+.amc-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* ================= TITLE ================= */
+.amc-title {
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  color: #e0f2fe;
+}
+
+/* ================= COUNTDOWN ================= */
+.amc-countdown {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 6px 0;
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56,189,248,.7);
+}
+
+/* ================= AI BOX ================= */
+.amc-ai {
+  font-size: 12px;
+  opacity: .9;
+  margin-bottom: 8px;
+}
+
+/* ================= ACTIONS ================= */
+.amc-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.amc-actions button {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.amc-actions button:hover {
+  color: #38bdf8;
+}
+
+/* =================================================
+   🛰️ GALAXY RADAR
+   ================================================= */
+.galaxy-radar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 10px auto 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center,
+      rgba(56,189,248,.15),
+      rgba(2,6,23,.9) 60%);
+  box-shadow:
+    0 0 30px rgba(56,189,248,.4),
+    inset 0 0 20px rgba(56,189,248,.2);
+  overflow: hidden;
+}
+
+.radar-sweep {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    rgba(56,189,248,.6),
+    rgba(56,189,248,.05),
+    transparent 60%
+  );
+  animation: radar-spin 3s linear infinite;
+}
+
+.radar-ring {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  border: 1px dashed rgba(56,189,248,.4);
+}
+
+/* WARNING RADAR */
+.galaxy-radar.warning {
+  box-shadow:
+    0 0 35px rgba(239,68,68,.6),
+    inset 0 0 20px rgba(239,68,68,.2);
+}
+.galaxy-radar.warning .radar-sweep {
+  background: conic-gradient(
+    rgba(239,68,68,.8),
+    rgba(239,68,68,.05),
+    transparent 60%
+  );
+}
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   🚫 AMC ENTERPRISE MODE
+   NO HEARTBEAT • NO PULSE • NO BLINK • NO ANIMATION
+   Boardroom / CIO Safe
+   ============================================================ */
+
+.amc-card,
+.amc-card *,
+.amc-timeline,
+.amc-bar {
+  animation: none !important;
+  transition: none !important;
+}
+
+
+/* =================================================
+   🚨 RISK STATES
+   ================================================= */
+.amc-card.low   { border-left: 3px solid #22c55e; }
+.amc-card.medium{ border-left: 3px solid #facc15; }
+.amc-card.high,
+.amc-card.critical,
+.amc-card.expired {
+  border-left: 3px solid #ef4444;
+}
+
+/* =================================================
+   📱 MOBILE
+   ================================================= */
+@media (max-width: 768px) {
+  .galaxy-radar {
+    width: 90px;
+    height: 90px;
+  }
+}

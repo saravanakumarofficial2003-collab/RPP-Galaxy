@@ -1,0 +1,101 @@
+// ===================================================================
+// 🧰 GALAXY IT VIEW — ENTERPRISE LIVE RENDER ENGINE
+// AUTHORITY: AGENT ONLY (NO LAN FAKE SYSTEMS)
+// ===================================================================
+
+console.log("🧰 Galaxy IT View Engine Loaded");
+
+// =======================================================
+// MAIN IT VIEW RENDER FUNCTION
+// =======================================================
+window.GalaxyRenderITView = function () {
+  const tbody = document.getElementById("systemTable");
+  if (!tbody) {
+    console.warn("❌ IT table body not found");
+    return;
+  }
+
+  // CLEAR TABLE (NO JUMPING — WE REBUILD CLEANLY)
+  tbody.innerHTML = "";
+
+  // =======================================================
+  // FILTER: ONLY AGENT SYSTEMS (REAL MACHINES)
+  // =======================================================
+  const agentSystems = Object.values(GALAXY.SYSTEMS)
+    .filter(sys => sys.Source === "AGENT")
+    .forEach(renderRow); // FIXED ORDER
+
+  // =======================================================
+  // RENDER EACH SYSTEM
+  // =======================================================
+  function renderITView(systems) {
+  const tbody = document.getElementById("systemTable");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  Object.values(systems)
+    .filter(s => s.Source === "AGENT")   // 🔒 FIXED
+    .sort((a, b) => a.IP.localeCompare(b.IP))
+    .forEach(sys => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${sys.IP}</td>
+        <td>${sys.Person || sys.Hostname}</td>
+        <td class="${sys.Status}">${sys.Status}</td>
+        <td>${sys.CPU || 0}%</td>
+        <td>${sys.RAM || 0}%</td>
+        <td>${sys.Disk || 0}%</td>
+        <td>${sys.Status === "ONLINE" ? "OK" : "DOWN"}</td>
+        <td>—</td>
+      `;
+      tbody.appendChild(tr);
+    });
+}
+  // =======================================================
+  // EMPTY STATE
+  // =======================================================
+  if (agentSystems.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center;opacity:0.6">
+          Waiting for agent telemetry…
+        </td>
+      </tr>
+    `;
+  }
+};
+
+// =======================================================
+// SAVE PERSON NAME (PERSISTENT)
+// =======================================================
+window.GalaxySavePersonName = function (ip, name) {
+  fetch("/api/ip-name", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ip, name })
+  }).catch(() => {});
+};
+
+// =======================================================
+// MANUAL AUTOHEAL (IT POWER MODE)
+// =======================================================
+window.GalaxyManualHeal = function (ip) {
+  fetch("/autoheal", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ip,
+      action: "RESTART_SERVICES"
+    })
+  }).catch(() => {});
+};
+
+// =======================================================
+// AUTO REFRESH (LIVE UPDATE)
+// =======================================================
+setInterval(() => {
+  if (window.GALAXY?.CURRENT_VIEW === "it") {
+    GalaxyRenderITView();
+  }
+}, 1000);

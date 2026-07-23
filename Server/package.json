@@ -1,0 +1,24 @@
+{
+  "name": "beast-galaxy-server",
+  "version": "1.0.0",
+  "description": "RPP BEAST Galaxy VisionOS Live Server",
+  "main": "server.mjs",
+  "type": "module",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.22.1",
+    "net-snmp": "^3.26.1",
+    "ping": "^1.0.0",
+    "socket.io": "^4.8.3",
+    "speedtest-net": "^2.2.0",
+    "systeminformation": "^5.31.1",
+    "ws": "^8.18.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

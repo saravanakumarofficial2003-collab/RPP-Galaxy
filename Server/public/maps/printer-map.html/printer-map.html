@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BEAST GALAXY — Printer Status Map</title>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #0e001a, #210043);
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+    }
+
+    h1 {
+        text-align: center;
+        padding: 20px;
+        font-size: 32px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        color: #e7d9ff;
+        text-shadow: 0 0 10px #9b4fff;
+    }
+
+    #printer-container {
+        width: 90%;
+        margin: auto;
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    .printer-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 20px;
+        transition: 0.3s;
+        border: 1px solid rgba(255,255,255,0.15);
+        box-shadow: 0 0 20px rgba(128, 0, 255, 0.2);
+    }
+
+    .printer-card:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 25px rgba(160, 0, 255, 0.4);
+    }
+
+    .printer-name {
+        font-size: 20px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .status {
+        padding: 6px 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .online { background: rgba(0,255,120,0.2); color: #00ff78; }
+    .offline { background: rgba(255,0,70,0.2); color: #ff0046; }
+    .warning { background: rgba(255,210,0,0.2); color: #ffd300; }
+
+    .info {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🖨 BEAST GALAXY — PRINTER STATUS MAP</h1>
+
+<div id="printer-container">
+    <!-- Cards will appear here dynamically -->
+</div>
+
+<script>
+// ===========================================================
+// CONNECT TO BEAST GALAXY WEBSOCKET
+// ===========================================================
+let ws = new WebSocket("ws://192.168.1.77:8090");
+
+ws.onopen = () => console.log("🖨 Printer Map connected to WebSocket.");
+ws.onerror = err => console.log("WS Error:", err);
+ws.onclose = () => console.log("Printer Map WebSocket closed.");
+
+// ===========================================================
+// UPDATE PRINTER MAP LIVE
+// ===========================================================
+ws.onmessage = msg => {
+    let data = JSON.parse(msg.data);
+
+    if (!data.printers) return; // Galaxy Server sends printer list here
+
+    let container = document.getElementById("printer-container");
+    container.innerHTML = ""; // clear old list
+
+    data.printers.forEach(pr => {
+        let div = document.createElement("div");
+        div.className = "printer-card";
+
+        let statusClass =
+            pr.Status === "ONLINE" ? "online" :
+            pr.Status === "WARNING" ? "warning" :
+            "offline";
+
+        div.innerHTML = `
+            <div class="printer-name">${pr.Name}</div>
+            <div class="status ${statusClass}">${pr.Status}</div>
+
+            <div class="info">🧾 Toner: ${pr.Toner || "Unknown"}</div>
+            <div class="info">📄 Paper: ${pr.Paper || "Unknown"}</div>
+            <div class="info">🖨 Jobs Waiting: ${pr.Queue || 0}</div>
+            <div class="info">🌐 IP: ${pr.IP || "N/A"}</div>
+        `;
+
+        container.appendChild(div);
+    });
+};
+
+</script>
+</body>
+</html>

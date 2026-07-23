@@ -1,0 +1,44 @@
+cd C:\RPP_GALAXY\Server
+
+>> node Server.mjs.
+
+
+cd C:\RPP_GALAXY\Agent
+>>
+PS C:\RPP_GALAXY\Agent> dir *.ps1
+>>
+
+
+    Directory: C:\RPP_GALAXY\Agent
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        15-12-2025     15:59           3996 AIPredictor48H.ps1
+-a----        15-12-2025     19:11           5084 AutoHealEngine.ps1
+-a----        30-12-2025     15:17           4488 GalaxyIdentityAgent.ps1
+-a----        29-12-2025     12:13           1174 GalaxyMasterControl.ps1
+-a----        05-01-2026     17:54           1389 GalaxyTelemetryAgent.ps1
+-a----        14-12-2025     12:09           3471 GhostEngine.ps1
+-a----        13-12-2025     18:58           3298 PerformanceBoostEngine.ps1
+
+
+PS C:\RPP_GALAXY\Agent> Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+>>
+
+Execution Policy Change
+The execution policy helps protect you from scripts that you do not trust. Changing the execution policy might expose
+you to the security risks described in the about_Execution_Policies help topic at
+https:/go.microsoft.com/fwlink/?LinkID=135170. Do you want to change the execution policy?
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+PS C:\RPP_GALAXY\Agent> powershell -ExecutionPolicy Bypass -File GalaxyTelemetryAgent.ps1
+>>
+?? Galaxy Telemetry Agent Started
+
+
+
+
+
+
+Set-WinUserLanguageList en-US -Force -- KEYBOARD LAYOUT
+

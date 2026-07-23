@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Galaxy Heat Map</title>
+<style>
+body { background:#000; margin:0; }
+.grid {
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:4px;
+    padding:10px;
+}
+.box {
+    height:40px;
+    border-radius:6px;
+    transition:0.3s;
+}
+</style>
+</head>
+<body>
+
+<div class="grid" id="heat"></div>
+
+<script>
+let ws = new WebSocket("ws://192.168.1.167:8090");
+
+ws.onmessage = (msg)=>{
+    let data = JSON.parse(msg.data);
+    let grid = document.getElementById("heat");
+    grid.innerHTML = "";
+
+    data.clients.forEach(pc=>{
+        let box = document.createElement("div");
+        box.className = "box";
+
+        let risk = pc.FailurePercent;
+
+        if (risk < 20) box.style.background = "#22c55e";
+        else if (risk < 50) box.style.background = "#eab308";
+        else if (risk < 80) box.style.background = "#fb923c";
+        else box.style.background = "#ef4444";
+
+        grid.appendChild(box);
+    });
+};
+</script>
+
+</body>
+</html>

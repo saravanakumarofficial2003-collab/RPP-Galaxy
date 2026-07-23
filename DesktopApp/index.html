@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>RPP BEAST GALAXY</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #020617;
+  color: #fff;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+#tabs {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+.tab {
+  padding: 12px 18px;
+  cursor: pointer;
+  border-right: 1px solid #1e293b;
+}
+
+.tab.active {
+  background: #0f172a;
+  font-weight: bold;
+}
+
+#content {
+  height: calc(100% - 48px);
+  display: flex;
+  flex-direction: column;
+}
+
+webview {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+webview.active {
+  display: flex;
+}
+
+/* ===== Remote Overlay ===== */
+.remote-overlay {
+  position: absolute;
+  inset: 48px 0 0 0;
+  background: rgba(2,6,23,.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.remote-overlay.hidden { display: none; }
+
+.remote-card {
+  background: #020617;
+  border-radius: 18px;
+  padding: 28px 32px;
+  width: 420px;
+  text-align: center;
+}
+
+.remote-actions button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary { background: #38bdf8; color: #020617; }
+.secondary { background: #22c55e; color: #020617; }
+.ghost { background: transparent; color: #7dd3fc; border: 1px solid #38bdf8; }
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+
+<!-- ===== TABS ===== -->
+<div id="tabs">
+  <div class="tab active" onclick="showGalaxy()">🌐</div>
+  <div class="tab" onclick="showHelpWire()">🖥️📡REMOTE ACCESS</div>
+</div>
+
+<div id="content">
+
+  <!-- ===== REMOTE OVERLAY ===== -->
+  <div id="remoteOverlay" class="remote-overlay hidden">
+    <div class="remote-card">
+      <h2>🖥️ Galaxy Remote Access</h2>
+      <p id="remoteStatus">Checking operator status…</p>
+
+      <div class="remote-actions">
+        <button id="installOperatorBtn" class="primary hidden">⬇ Install Operator</button>
+        <button id="launchOperatorBtn" class="secondary hidden">🚀 Launch Operator</button>
+        <button id="continueBtn" class="ghost hidden">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GALAXY ===== -->
+  <webview
+    id="galaxyView"
+    class="active"
+    src="http://192.168.1.167:8090/"
+    allowpopups
+    partition="persist:galaxy">
+  </webview>
+
+  <!-- ===== HELPWIRE ===== -->
+  <webview
+    id="helpwireView"
+    src="https://www.helpwire.app/account/358025/clients/1052542"
+    allowpopups
+    partition="persist:helpwire">
+  </webview>
+
+</div>
+
+<!-- ===== SINGLE SCRIPT (MANDATORY) ===== -->
+<script>
+const galaxyView = document.getElementById("galaxyView");
+const helpwireView = document.getElementById("helpwireView");
+const overlay = document.getElementById("remoteOverlay");
+const statusText = document.getElementById("remoteStatus");
+const installBtn = document.getElementById("installOperatorBtn");
+const launchBtn  = document.getElementById("launchOperatorBtn");
+const continueBtn = document.getElementById("continueBtn");
+
+function setActiveTab(i) {
+  document.querySelectorAll(".tab").forEach((t, idx) =>
+    t.classList.toggle("active", idx === i)
+  );
+}
+
+function showGalaxy() {
+  galaxyView.classList.add("active");
+  helpwireView.classList.remove("active");
+  overlay.classList.add("hidden");
+  setActiveTab(0);
+}
+
+function showHelpWire() {
+  setActiveTab(1);
+  overlay.classList.remove("hidden");
+
+  setTimeout(() => {
+    statusText.innerText = "Operator ready or already installed.";
+    launchBtn.classList.remove("hidden");
+    continueBtn.classList.remove("hidden");
+  }, 800);
+}
+
+installBtn.onclick = () => {
+  window.galaxy.openExternal("https://www.helpwire.app/download");
+};
+
+launchBtn.onclick = () => {
+  window.galaxy.openExternal("helpwire://");
+};
+
+continueBtn.onclick = () => {
+  overlay.classList.add("hidden");
+  helpwireView.classList.add("active");
+  galaxyView.classList.remove("active");
+};
+</script>
+
+</body>
+</html>

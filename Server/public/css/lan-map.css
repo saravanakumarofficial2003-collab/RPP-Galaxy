@@ -1,0 +1,84 @@
+/* =====================================================
+   LAN MAP
+   ===================================================== */
+#lanMap {
+  display: grid;
+  grid-template-columns: repeat(25, 1fr);
+  gap: 6px;
+}
+
+.lan-node {
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 11px;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+.lan-node.online   { background: #16a34a; }
+.lan-node.offline  { background: #dc2626; }
+.lan-node.critical { background: #f97316; }
+
+@keyframes pulse {
+  0% { opacity: .7 }
+  50% { opacity: 1 }
+  100% { opacity: .7 }
+}
+
+/* =====================================================
+   LAN LIVE METRIC PANEL (SINGLE SOURCE)
+   ===================================================== */
+
+.lan-metric-panel {
+  position: fixed;
+  right: 24px;
+  top: 80px;
+  width: 420px;
+  max-height: 80vh;
+
+  background: linear-gradient(180deg, #020617, #020617cc);
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 16px;
+
+  box-shadow: 0 0 40px rgba(56,189,248,.25);
+  z-index: 99999;
+
+  transform: translateX(120%);
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    transform 0.35s cubic-bezier(.4,0,.2,1),
+    opacity 0.25s ease;
+}
+
+.lan-metric-panel.show {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lan-metric-panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lan-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#lanMetricClose {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#lanMetricClose:hover {
+  color: #f87171;
+}

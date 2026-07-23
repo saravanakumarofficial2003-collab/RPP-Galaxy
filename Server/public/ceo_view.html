@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RPP INFRA PROJECTS LTD — CEO Live View</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial;
+  background: radial-gradient(circle at top, #101828, #020617);
+  color: #fff;
+}
+
+header {
+  padding: 24px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg,#0b1220,#020617);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 0 30px rgba(0,153,255,.15);
+}
+
+.card h3 {
+  margin: 0;
+  font-weight: 500;
+  opacity: .8;
+}
+
+.big {
+  font-size: 40px;
+  margin-top: 10px;
+}
+
+.green { color:#4ade80 }
+.yellow { color:#facc15 }
+.red { color:#f87171 }
+
+.full {
+  grid-column: span 4;
+}
+
+.subtitle {
+  opacity: .7;
+  margin-top: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  RPP INFRA PROJECTS LIMITED — CEO / MD LIVE CONTROL
+</header>
+
+<div class="grid">
+  <div class="card">
+    <h3>Company Health</h3>
+    <div id="healthScore" class="big green">—</div>
+    <div class="subtitle">Overall operational stability</div>
+  </div>
+
+  <div class="card">
+    <h3>Offices Online</h3>
+    <div id="onlineCount" class="big">—</div>
+    <div class="subtitle">LAN connected systems</div>
+  </div>
+
+  <div class="card">
+    <h3>Risk Level</h3>
+    <div id="riskLevel" class="big">—</div>
+    <div class="subtitle">Next 48 hours</div>
+  </div>
+
+  <div class="card">
+    <h3>Critical Alerts</h3>
+    <div id="criticalCount" class="big red">—</div>
+    <div class="subtitle">Immediate attention</div>
+  </div>
+
+  <div class="card full">
+    <h3>AI Executive Summary</h3>
+    <div id="aiSummary" style="margin-top:12px;font-size:18px;line-height:1.5">
+      Waiting for live data…
+    </div>
+  </div>
+</div>
+
+<script src="js/ceo-view.js"></script>
+</body>
+</html>

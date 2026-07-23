@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Generated folders
+Logs/
+Reports/
+ServerData/
+Backup/
+Quarantine/
+monitoring/
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+*.cache
+
+# Environment
+.env
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Executables
+helpwire_setup.exe
+nssm.exe
+
+# JSON (only if they contain sensitive information)
+users.json

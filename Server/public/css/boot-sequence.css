@@ -1,0 +1,60 @@
+#bootScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #020617, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 1s ease;
+}
+
+.boot-center {
+  text-align: center;
+  color: #e0f2fe;
+  font-family: "Segoe UI", Inter;
+}
+
+.boot-logo {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  animation: glow 2s infinite alternate;
+}
+
+.boot-sub {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 30px;
+}
+
+.boot-bar {
+  width: 360px;
+  height: 6px;
+  background: rgba(255,255,255,.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+#bootProgress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#22d3ee,#6366f1);
+  transition: width .4s ease;
+}
+
+#bootText {
+  font-size: 13px;
+  opacity: .8;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #22d3ee; }
+  to { text-shadow: 0 0 30px #6366f1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
