@@ -38,6 +38,10 @@ PS C:\RPP_GALAXY\Agent> powershell -ExecutionPolicy Bypass -File GalaxyTelemetry
 
 
 
+PS C:\Windows\system32> cd C:\RPP_GALAXY\DesktopApp
+>> npm start
+
+https://www.helpwire.app/account/358025/clients/1052465
 
 
 Set-WinUserLanguageList en-US -Force -- KEYBOARD LAYOUT
