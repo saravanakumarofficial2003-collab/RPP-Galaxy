@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BEAST GALAXY — NETWORK INFRASTRUCTURE MAP</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #05070f;
+        color: #d9e0ff;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 10px 0;
+        font-size: 32px;
+        font-weight: 700;
+        background: linear-gradient(90deg,#00eaff,#6f00ff);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    #canvas {
+        width: 100vw;
+        height: 90vh;
+        background: #080c15;
+        display: block;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🌐 BEAST GALAXY — Network Infrastructure Overview</h1>
+<canvas id="canvas"></canvas>
+
+<script>
+/* ============================================================
+      NETWORK MAP ENGINE (Canvas)
+============================================================ */
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Resize handler
+window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+};
+
+// Node structure (Switches, Routers, Servers)
+let nodes = {
+    SW1: { x: 300, y: 200, type: "Switch", status: "ONLINE", latency: 0 },
+    SW2: { x: 700, y: 200, type: "Switch", status: "ONLINE", latency: 0 },
+    RTR1:{ x: 500, y: 400, type: "Router", status: "ONLINE", latency: 0 },
+    SRV1:{ x: 500, y: 100, type: "Server", status: "ONLINE", latency: 0 }
+};
+
+// Links between nodes
+let links = [
+    ["SW1","RTR1"],
+    ["SW2","RTR1"],
+    ["SW1","SRV1"],
+    ["SW2","SRV1"]
+];
+
+// Draw glowing cable
+function drawLink(a, b) {
+    let n1 = nodes[a];
+    let n2 = nodes[b];
+
+    ctx.strokeStyle = "rgba(0,200,255,0.6)";
+    ctx.lineWidth = 4;
+    ctx.shadowBlur = 14;
+    ctx.shadowColor = "#00aaff";
+
+    ctx.beginPath();
+    ctx.moveTo(n1.x, n1.y);
+    ctx.lineTo(n2.x, n2.y);
+    ctx.stroke();
+}
+
+// Draw network node box
+function drawNode(name, obj) {
+    let color =
+        obj.status === "ONLINE" ? "#00ff88" :
+        obj.status === "WARN"   ? "#ffd740" :
+        "#ff3b3b";
+
+    ctx.fillStyle = "rgba(255,255,255,0.08)";
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = color;
+
+    // Node box
+    ctx.beginPath();
+    ctx.roundRect(obj.x - 70, obj.y - 30, 140, 60, 10);
+    ctx.fill();
+    ctx.stroke();
+
+    // Labels
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = "#e8e8ff";
+    ctx.font = "16px Segoe UI";
+    ctx.fillText(name, obj.x - 25, obj.y - 5);
+
+    ctx.font = "12px Segoe UI";
+    ctx.fillStyle = "#a8a8ff";
+    ctx.fillText(`${obj.type}`, obj.x - 25, obj.y + 15);
+    ctx.fillText(`Latency: ${obj.latency}ms`, obj.x - 25, obj.y + 32);
+}
+
+// Animation loop
+function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw links
+    links.forEach(([a, b]) => drawLink(a, b));
+
+    // draw nodes
+    Object.keys(nodes).forEach(n => drawNode(n, nodes[n]));
+
+    requestAnimationFrame(render);
+}
+render();
+
+/* ============================================================
+      WEBSOCKET — LIVE UPDATE OF NETWORK DEVICES
+============================================================ */
+let ws = new WebSocket("ws://192.168.1.167:8090");
+
+ws.onopen   = () => console.log("🟢 Connected to Galaxy Server (Network Map)");
+ws.onerror  = e  => console.log("⚠ WS Error:", e);
+ws.onclose  = () => console.log("🔴 WS Closed");
+
+ws.onmessage = msg => {
+    let data = JSON.parse(msg.data);
+
+    if (!data.network) return; // server must send { network: [...] }
+
+    data.network.forEach(dev => {
+        if (!nodes[dev.name]) return;
+
+        nodes[dev.name].status = dev.status;
+        nodes[dev.name].latency = dev.latency;
+    });
+};
+</script>
+
+</body>
+</html>

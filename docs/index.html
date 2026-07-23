@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RPP BEAST GALAXY — VisionOS Unified Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Core Styles -->
+<link rel="stylesheet" href="/css/visionos.css">
+<link rel="stylesheet" href="/css/alerts.css">
+<link rel="stylesheet" href="/css/lan-map.css">
+<link rel="stylesheet" href="/css/boot-sequence.css">
+<link rel="stylesheet" href="/css/ai-galaxy.css">
+<link rel="stylesheet" href="/css/amc-hologram.css">
+<link rel="stylesheet" href="/css/amc-analytics.css">
+
+<style>
+#bootScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #020617, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+.bootBox {
+  text-align: center;
+  color: #7dd3fc;
+  font-family: "Segoe UI", monospace;
+}
+.bootTitle {
+  font-size: 34px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  color: #e0e7ff;
+  text-shadow: 0 0 20px #38bdf8;
+}
+.bootLine {
+  font-size: 14px;
+  opacity: 0;
+  animation: bootLine 1s ease forwards;
+}
+.bootLine:nth-child(2){animation-delay:.5s}
+.bootLine:nth-child(3){animation-delay:1.2s}
+.bootLine:nth-child(4){animation-delay:2s}
+.bootLine:nth-child(5){animation-delay:2.8s}
+@keyframes bootLine { to { opacity: 1; } }
+.scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="galaxyAlertStack"></div>
+
+<!-- ================= BOOT ================= -->
+<div id="bootScreen">
+  <div class="scanline"></div>
+  <div class="bootBox">
+    <div class="bootTitle">RPP BEAST GALAXY</div>
+    <div class="bootLine">Initializing Command Core…</div>
+    <div class="bootLine">Synchronizing LAN Agents…</div>
+    <div class="bootLine">Loading AI Neural Matrix…</div>
+    <div class="bootLine">VisionOS Online</div>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="topHeader">
+  <div class="brand">
+    👨‍💻𝙳𝙰𝚂𝙷𝙱𝙾𝙰𝚁𝙳
+    <span class="subtitle"> Live🟢 </span>
+  </div>
+
+  <div id="galaxyToastStack"></div>
+
+  <div class="view-switch">
+    <button onclick="GalaxyShowView('md')">MD VIEW</button>
+    <button onclick="GalaxyShowView('ceo')">CEO VIEW</button>
+    <button onclick="GalaxyShowView('it')">IT VIEW</button>
+    <button onclick="GalaxyShowView('ai')">AI VIEW</button>
+  </div>
+</header>
+
+<!-- ================= GLOBAL HEALTH ================= -->
+<section id="globalHealth">
+  <div class="healthCard ok"><div class="label">ONLINE</div><div class="value" data-online>0</div></div>
+  <div class="healthCard"><div class="label">OFFLINE</div><div class="value" data-offline>0</div></div>
+  <div class="healthCard warn"><div class="label">SLOW</div><div class="value" data-slow>0</div></div>
+  <div class="healthCard critical"><div class="label">CRITICAL</div><div class="value" data-critical>0</div></div>
+</section>
+
+<main id="mainContent">
+
+<!-- ================= MD VIEW ================= -->
+<section id="mdView" class="view active">
+
+  <section id="view-md" class="galaxy-view active"></section>
+  <section id="view-it" class="galaxy-view"></section>
+  <section id="view-ai" class="galaxy-view"></section>
+
+  <h2>MD / CEO EXECUTIVE OVERVIEW</h2>
+
+  <div class="grid-4">
+    <div class="card">Online <span data-online>0</span></div>
+    <div class="card">Offline <span data-offline>0</span></div>
+    <div class="card critical">Critical <span data-critical>0</span></div>
+    <div class="card ai">Risk <span id="mdRisk">—</span></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>AI Executive Summary</h3>
+      <div id="aiSummary">Waiting for live data…</div>
+    </div>
+    <div class="card">
+      <h3>System Coverage</h3>
+      <div id="mdCompletion">—</div>
+    </div>
+  </div>
+
+<!-- ================= NETWORK SPEED ================= -->
+<div class="card network-card">
+
+  <h3>🌐 Network Speed Monitor</h3>
+
+  <div class="speed-row">
+
+    <div class="speed-gauge">
+      <canvas id="speedGauge" width="260" height="160"></canvas>
+
+      <div class="speed-value">
+        <span id="downloadSpeed">0.00</span>
+        <small>Mbps ↓</small>
+      </div>
+    </div>
+
+    <div class="speed-stats">
+      <div>📥 Download: <b id="dlText">0 Mbps</b></div>
+      <div>📤 Upload: <b id="ulText">0 Mbps</b></div>
+      <div>📡 Ping: <b id="pingText">0 ms</b></div>
+    </div>
+
+  </div>
+</div>
+</section>
+<!-- ================= IT VIEW ================= -->
+<section id="itView" class="view">
+<div id="amcContainer"></div>
+
+  <h2>IT COMMAND CENTER</h2>
+  <div class="card full">
+    <table>
+      <thead>
+        <tr>
+          <th>IP</th>
+          <th>Host</th>
+          <th>Status</th>
+          <th>CPU</th>
+          <th>RAM</th>
+          <th>Disk</th>
+          <th>Health</th>
+          <th>Owner</th>
+        </tr>
+      </thead>
+      <tbody id="itTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>LAN MAP</h3>
+    <div id="lanMap"></div>
+  </div>
+
+  <!-- ✅ LAN METRICS PANEL -->
+  <div id="lanMetricPanel" class="lan-metric-panel hidden">
+
+    <div class="lan-metric-header">
+      <div>
+        <strong id="lanMetricIP">—</strong><br>
+        <small>
+          <span id="lanMetricHost"></span>
+          <span id="lanMetricOwner"></span>
+        </small>
+      </div>
+      <button id="lanMetricClose">✕</button>
+    </div>
+
+    <hr style="border-color:#1e293b;margin:10px 0">
+
+    <div id="lanLiveSummary">CPU: — | RAM: —</div>
+
+    <canvas id="lanMetricChart" height="140"></canvas>
+
+    <div id="lanTopProcesses"></div>
+    <div id="lanFixActions"></div>
+
+  </div>
+
+</section>
+<!-- ================= AI VIEW ================= -->
+<section id="aiView" class="view">
+  <h2>AI INTELLIGENCE CENTER</h2>
+
+  <div class="grid-2">
+    <div class="card ai">
+      <h3>Root Cause</h3>
+      <div id="aiRootCause">—</div>
+    </div>
+    <div class="card ai">
+      <h3>Prediction</h3>
+      <div id="aiPrediction">—</div>
+    </div>
+  </div>
+
+  <div class="card ai">
+    <h3>AI Actions</h3>
+    <div id="aiActions">—</div>
+  </div>
+</section>
+
+</main>
+<!-- ================= JS STACK ================= -->
+<script src="/js/galaxy-ultra-core.js"></script>
+<script src="/js/live.socket.js"></script>
+<script src="/js/galaxy-runtime.controller.js"></script>
+<script src="/js/lan-meta.js"></script>
+<script src="/js/dashboard.js"></script>
+
+<!-- IT + LAN -->
+<script src="/js/it-lan-authoritative.js"></script>
+<script src="/js/lan-live-metrics.js"></script>
+<script src="/js/remote-access.js"></script>
+
+<!-- AI STACK -->
+
+<script src="/js/ai-mini-graph.js"></script>
+<script src="/js/ai-cyber-intel.js"></script>
+
+<!-- AMC -->
+<script src="/js/amc-dashboard.js"></script>
+
+<!-- ================= NETWORK SPEED ENGINE ================= -->
+<script src="/js/network-speed-live.js"></script>
+<script src="/js/speed-gauge.js"></script>
+
+<!-- ================= BOOT REMOVE ================= -->
+<script>
+setTimeout(() => {
+  const boot = document.getElementById("bootScreen");
+  boot.style.opacity = "0";
+  setTimeout(() => boot.remove(), 1000);
+}, 4000);
+</script>
+</body>
+</html>

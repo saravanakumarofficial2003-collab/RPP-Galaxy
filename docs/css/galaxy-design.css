@@ -1,0 +1,158 @@
+/* =========================================================
+   RPP BEAST GALAXY — FOREIGN GRADE DESIGN SYSTEM
+   ========================================================= */
+
+:root {
+  --bg-main: radial-gradient(circle at top, #0b102d, #03040c);
+  --glass: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.18);
+
+  --neon-blue: #4da3ff;
+  --neon-green: #00ffb3;
+  --neon-yellow: #ffc107;
+  --neon-red: #ff4d6d;
+}
+
+/* ================= GLOBAL ================= */
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg-main);
+  color: #eaf2ff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* ================= GLASS PANELS ================= */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(77,163,255,0.15);
+}
+
+/* ================= TOP BAR ================= */
+.topbar {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  background: linear-gradient(180deg, rgba(0,0,0,.6), transparent);
+}
+
+.topbar span {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #a6c9ff;
+}
+
+.topbar span.active {
+  color: var(--neon-blue);
+  text-shadow: 0 0 12px var(--neon-blue);
+}
+
+/* ================= DASH GRID ================= */
+.dashboard {
+  display: grid;
+  grid-template-columns: 2.3fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100% - 70px);
+}
+
+/* ================= STATUS BADGES ================= */
+.status-online {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+.status-offline {
+  color: var(--neon-red);
+  text-shadow: 0 0 12px var(--neon-red);
+}
+
+/* ================= NEON BADGES ================= */
+.badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.ok {
+  background: rgba(0,255,179,0.15);
+  color: var(--neon-green);
+}
+
+.warn {
+  background: rgba(255,193,7,0.15);
+  color: var(--neon-yellow);
+}
+
+.critical {
+  background: rgba(255,77,109,0.18);
+  color: var(--neon-red);
+}
+
+/* ================= BUTTON ================= */
+button {
+  background: linear-gradient(135deg, #0b5cff, #003cff);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 0 12px rgba(77,163,255,.4);
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* ================= LAN MATRIX ================= */
+.lan-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 6px;
+}
+
+.ip {
+  height: 28px;
+  border-radius: 8px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #222;
+  color: #999;
+  transition: .3s;
+}
+
+.ip.online {
+  background: rgba(0,255,179,0.25);
+  color: var(--neon-green);
+  box-shadow: 0 0 10px rgba(0,255,179,.4);
+}
+
+.ip.critical {
+  background: rgba(255,77,109,0.25);
+  color: var(--neon-red);
+  box-shadow: 0 0 14px rgba(255,77,109,.6);
+}
+
+.ip.offline {
+  background: rgba(255,255,255,0.05);
+  color: #666;
+}
+
+/* ================= AI CARDS ================= */
+.ai-card {
+  margin-bottom: 15px;
+  padding: 16px;
+}

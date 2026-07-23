@@ -1,0 +1,157 @@
+/* =========================================================
+   🌌 GALAXY AI INTELLIGENCE – SPACE LEVEL ANIMATION
+   Premium • Subtle • Live • Non-blocking
+   ========================================================= */
+
+/* ================= ROOT AI PANEL ================= */
+#aiView {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================= GALAXY BACKGROUND ================= */
+#aiView::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(56,189,248,0.12), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(168,85,247,0.10), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(34,197,94,0.08), transparent 50%);
+  animation: galaxy-drift 60s linear infinite;
+  z-index: 0;
+}
+
+@keyframes galaxy-drift {
+  0%   { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1.15); }
+}
+
+/* ================= STAR FIELD ================= */
+#aiView::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,.4), transparent);
+  animation: stars-flicker 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes stars-flicker {
+  0%,100% { opacity: .4; }
+  50% { opacity: .9; }
+}
+
+/* ================= AI PANEL CARD ================= */
+#aiPanel {
+  position: relative;
+  z-index: 2;
+  background: rgba(2,6,23,0.75);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow:
+    0 0 40px rgba(56,189,248,.15),
+    inset 0 0 20px rgba(255,255,255,.03);
+  animation: ai-fade-in .8s ease;
+}
+
+@keyframes ai-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= AI TITLE ================= */
+#aiTitle {
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #e0f2fe;
+  text-shadow: 0 0 12px rgba(56,189,248,.8);
+}
+
+/* ================= AI CONTENT ================= */
+#aiContent,
+#aiTimeline {
+  font-family: "Segoe UI", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #cbd5f5;
+}
+
+/* ================= AI CONFIDENCE ================= */
+#aiConfidence {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  font-weight: 700;
+  background: linear-gradient(90deg,#22c55e,#38bdf8);
+  color: #020617;
+  box-shadow: 0 0 14px rgba(56,189,248,.6);
+  animation: confidence-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes confidence-pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ================= AI STATE COLORS ================= */
+.ai-online {
+  box-shadow: 0 0 25px rgba(34,197,94,.35);
+}
+
+.ai-slow {
+  box-shadow: 0 0 25px rgba(245,158,11,.35);
+}
+
+.ai-critical {
+  box-shadow:
+    0 0 30px rgba(239,68,68,.6),
+    inset 0 0 20px rgba(239,68,68,.15);
+  animation: critical-alarm 1.5s ease-in-out infinite;
+}
+
+@keyframes critical-alarm {
+  0%,100% { box-shadow: 0 0 30px rgba(239,68,68,.6); }
+  50% { box-shadow: 0 0 45px rgba(239,68,68,.9); }
+}
+
+/* ================= LIVE DATA HEARTBEAT ================= */
+.ai-live-pulse {
+  position: relative;
+}
+
+.ai-live-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 16px;
+  border: 1px solid rgba(56,189,248,.3);
+  animation: live-ring 2s ease-out infinite;
+}
+
+@keyframes live-ring {
+  0% { opacity: .6; transform: scale(.98); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
+/* ================= SCROLLBAR ================= */
+#aiPanel ::-webkit-scrollbar {
+  width: 6px;
+}
+#aiPanel ::-webkit-scrollbar-thumb {
+  background: linear-gradient(#38bdf8,#22c55e);
+  border-radius: 6px;
+}
+
+/* ================= MOBILE SAFE ================= */
+@media (max-width: 768px) {
+  #aiPanel {
+    padding: 14px;
+  }
+}

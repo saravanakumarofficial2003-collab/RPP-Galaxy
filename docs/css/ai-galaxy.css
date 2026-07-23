@@ -1,0 +1,141 @@
+/* ============================================================
+   🌌 RPP BEAST GALAXY — AI INTELLIGENCE CENTER (CLEAN FUTURISTIC)
+   Calm • Authoritative • Inference Engine Look
+   CLEAN UI • NO blur • NO heartbeat • NO animation
+   ============================================================ */
+
+/* ---------- GLOBAL PANEL ---------- */
+#aiPanel {
+  position: relative;
+  background:
+    linear-gradient(180deg, #020617, #020617);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow:
+    inset 0 0 0 1px rgba(148,163,184,0.14),
+    0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* ---------- TOP RISK STRIP ---------- */
+#aiPanel::before {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-bottom: 18px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    #ef4444,
+    #6366f1,
+    #22d3ee
+  );
+}
+
+/* ---------- SECTION CARDS ---------- */
+#aiPanel > div,
+#aiPanel .card {
+  background: #0b1220;
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow:
+    inset 0 0 0 1px rgba(148,163,184,0.10),
+    0 10px 28px rgba(0,0,0,0.45);
+}
+
+/* ---------- HEADINGS ---------- */
+#aiPanel h3 {
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #9ca3ff;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* ---------- AI TEXT (INFERENCE STYLE) ---------- */
+#aiRootCause,
+#aiPrediction,
+#aiActions {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #e5e7eb;
+  white-space: pre-line;
+}
+
+/* ---------- LABEL EMPHASIS ---------- */
+#aiRootCause b,
+#aiPrediction b,
+#aiActions b {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+/* ---------- EXECUTIVE READABILITY ---------- */
+#aiRootCause {
+  color: #f1f5f9;
+}
+
+#aiPrediction {
+  color: #fde68a;
+}
+
+#aiActions {
+  color: #d1fae5;
+}
+
+/* ---------- TIMELINE / EVENT TRACE ---------- */
+#aiTimeline {
+  background: #020617;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #cbd5f5;
+  border: 1px solid rgba(148,163,184,0.12);
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* ---------- SEVERITY STATES (STATIC, CLEAN) ---------- */
+#aiPanel.galaxy-risk {
+  border-left: 4px solid #ef4444;
+}
+
+#aiPanel.galaxy-warn {
+  border-left: 4px solid #f59e0b;
+}
+
+#aiPanel.galaxy-ok {
+  border-left: 4px solid #22c55e;
+}
+
+/* ---------- EXECUTIVE CONFIDENCE BADGE ---------- */
+#aiConfidence {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148,163,184,0.15);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: right;
+  color: #a5b4fc;
+}
+
+/* ---------- SCROLLBAR (MINIMAL) ---------- */
+#aiTimeline::-webkit-scrollbar {
+  width: 6px;
+}
+
+#aiTimeline::-webkit-scrollbar-thumb {
+  background: rgba(148,163,184,0.30);
+  border-radius: 6px;
+}
+
+/* ============================================================
+   END — AI INTELLIGENCE CENTER (CLEAN FUTURISTIC)
+   ============================================================ */

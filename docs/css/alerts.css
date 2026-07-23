@@ -1,0 +1,37 @@
+/* ============================================================
+   BEAST GALAXY – OFFLINE SIDE ALERT UI
+   ============================================================ */
+
+#offlineAlerts {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.alertBox {
+  background: linear-gradient(145deg, #2a0d0d, #120606);
+  color: #fff;
+  border-left: 5px solid #ff4d4d;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  min-width: 260px;
+  box-shadow: 0 0 20px rgba(255, 77, 77, 0.4);
+  animation: slideIn 0.4s ease-out;
+}
+
+.alertBox small {
+  opacity: 0.7;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

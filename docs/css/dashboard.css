@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BEAST GALAXY — 3D EARTH NETWORK MAP</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+}
+// 🚫 TEMP POPUP BLOCK
+window.alert = () => {};
+window.confirm = () => false;
+window.prompt = () => null;
+
+/* 🌌 Floating Hologram Icon */
+.pc-holo-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(120,0,255,0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    animation: holoFloat 2s ease-in-out infinite;
+}
+
+@keyframes holoFloat {
+    0%   { transform: translateY(0px);   opacity: 0.7; }
+    50%  { transform: translateY(-6px); opacity: 1; }
+    100% { transform: translateY(0px);   opacity: 0.7; }
+}
+</style>
+
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+// SCENE  
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+let renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// EARTH
+let texture = new THREE.TextureLoader().load(
+    "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/earth.jpg"
+);
+let earthGeo = new THREE.SphereGeometry(3, 64, 64);
+let earthMat = new THREE.MeshBasicMaterial({ map: texture });
+let earth = new THREE.Mesh(earthGeo, earthMat);
+scene.add(earth);
+
+// GLOW
+let glowGeo = new THREE.SphereGeometry(3.3, 64, 64);
+let glowMat = new THREE.MeshBasicMaterial({
+    color: 0x6f00ff,
+    transparent: true,
+    opacity: 0.35
+});
+let glow = new THREE.Mesh(glowGeo, glowMat);
+scene.add(glow);
+
+// CAMERA
+camera.position.z = 6;
+
+// ROTATION LOOP
+function animate() {
+    requestAnimationFrame(animate);
+    earth.rotation.y += 0.002;
+    renderer.render(scene, camera);
+}
+animate();
+
+// ADD NETWORK NODES
+function addNode(lat, lon, color=0x00ff00) {
+    let phi = (90 - lat) * (Math.PI / 180);
+    let theta = (lon + 180) * (Math.PI / 180);
+
+    let x = 3 * Math.sin(phi) * Math.cos(theta);
+    let y = 3 * Math.cos(phi);
+    let z = 3 * Math.sin(phi) * Math.sin(theta);
+
+    let markerGeo = new THREE.SphereGeometry(0.05, 16, 16);
+    let markerMat = new THREE.MeshBasicMaterial({ color });
+    let marker = new THREE.Mesh(markerGeo, markerMat);
+    marker.position.set(x, y, z);
+
+    scene.add(marker);
+}
+/* ============================= */
+/* GALAXY AMC / BILLING TICKER */
+/* ============================= */
+
+.galaxy-ticker {
+  display: flex;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #0b0f1a;
+  border-bottom: 1px solid #1f2937;
+  height: 56px;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Box */
+.ticker-box {
+  min-width: 180px;
+  height: 42px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Segoe UI", monospace;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticker-box:hover {
+  transform: scale(1.03);
+}
+
+/* Text */
+.label {
+  font-size: 11px;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+}
+
+.value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Status Colors */
+.green {
+  background: #052e1b;
+  color: #22c55e;
+}
+
+.yellow {
+  background: #2a2205;
+  color: #facc15;
+  animation: pulseYellow 2s infinite;
+}
+
+.red {
+  background: #2a0606;
+  color: #ef4444;
+  animation: pulseRed 1.5s infinite;
+}
+
+.blue {
+  background: #041b2a;
+  color: #38bdf8;
+}
+
+.purple {
+  background: #1e0a2a;
+  color: #c084fc;
+}
+
+/* Pulses */
+@keyframes pulseYellow {
+  0% { box-shadow: 0 0 0 rgba(250,204,21,0.3); }
+  50% { box-shadow: 0 0 10px rgba(250,204,21,0.6); }
+  100% { box-shadow: 0 0 0 rgba(250,204,21,0.3); }
+}
+
+@keyframes pulseRed {
+  0% { box-shadow: 0 0 0 rgba(239,68,68,0.4); }
+  50% { box-shadow: 0 0 12px rgba(239,68,68,0.8); }
+  100% { box-shadow: 0 0 0 rgba(239,68,68,0.4); }
+}
+</script>
+
+</body>
+</html>
