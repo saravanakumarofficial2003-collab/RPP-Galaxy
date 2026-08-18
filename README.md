@@ -307,7 +307,7 @@ Complete project documentation is available in the **docs** directory.
 
 **LinkedIn**
 
-https://linkedin.com/in/saravanakumar-s
+https://www.linkedin.com/in/saravanakumar-tech/
 
 **GitHub**
 
